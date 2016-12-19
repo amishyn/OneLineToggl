@@ -7,14 +7,15 @@
 //
 
 import Cocoa
-//import Alamofire
-//import SwiftDate
+import Alamofire
+import SwiftDate
 
 class ViewController: NSViewController {
     let slang = ["#ks": ***REMOVED***, "#p2b": ***REMOVED***]
     
     @IBOutlet weak var slangLabel: NSTextField!
     @IBOutlet weak var lastActivity: NSTextField!
+    @IBOutlet weak var textField: NSTextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,8 +30,14 @@ class ViewController: NSViewController {
             // Update the view, if already loaded.
         }
     }
+
+    @IBAction func done(_ sender: Any) {
+        self.view.window?.makeFirstResponder(nil)
+    }
     
     @IBAction func textFieldAction(_ sender: NSTextField) {
+        self.view.window?.makeFirstResponder(nil)
+
         let string = sender.stringValue
         var title = string
         print(string);
@@ -56,34 +63,34 @@ class ViewController: NSViewController {
         if (togglProject != nil) {
             print("activity:", title, " @ ", project, togglProject!)
             
-            //            var headers: HTTPHeaders = [
-            //                "Content-Type": "application/json"
-            //            ]
-            //
-            //            let date = Date()
-            //            let dateInRegion = DateInRegion(absoluteDate: date)
-            //            let serializedString:String = dateInRegion.iso8601()
-            //            let parameters = [
-            //                "time_entry": ["start": serializedString,
-            //                               "description": title,
-            //                               "pid": togglProject!,
-            //                               "created_with": "One line",
-            //                               "duration": -1*date.timeIntervalSince1970
-            //                    ] as [String : Any]
-            //            ]
-            //
-            //            let user = "***REMOVED***"
-            //            let password = "api_token"
-            //
-            //            if let authorizationHeader = Request.authorizationHeader(user: user, password: password) {
-            //                headers[authorizationHeader.key] = authorizationHeader.value
-            //            }
+                        var headers: HTTPHeaders = [
+                            "Content-Type": "application/json"
+                        ]
+            
+                        let date = Date()
+                        let dateInRegion = DateInRegion(absoluteDate: date)
+                        let serializedString:String = dateInRegion.iso8601()
+                        let parameters = [
+                            "time_entry": ["start": serializedString,
+                                           "description": title,
+                                           "pid": togglProject!,
+                                           "created_with": "One line",
+                                           "duration": -1*date.timeIntervalSince1970
+                                ] as [String : Any]
+                        ]
+            
+                        let user = "***REMOVED***"
+                        let password = "api_token"
+            
+                        if let authorizationHeader = Request.authorizationHeader(user: user, password: password) {
+                            headers[authorizationHeader.key] = authorizationHeader.value
+                        }
             
             
-            //            Alamofire.request("https://www.toggl.com/api/v8/time_entries", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).response { response in
-            //                sender.stringValue = ""
-            //                self.lastActivity.stringValue = "\(title) \(project)"
-            //            }
+                        Alamofire.request("https://www.toggl.com/api/v8/time_entries", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).response { response in
+                            sender.stringValue = ""
+                            self.lastActivity.stringValue = "\(title) \(project)"
+                        }
             
         }
         
