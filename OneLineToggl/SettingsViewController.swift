@@ -9,9 +9,24 @@
 import Cocoa
 
 class SettingsViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource{
+
+    var projects: [[String:Any]] = []
+    
+    //    [
+    //    "name": "***REMOVED***",
+    //    "shortcuts": "ks",
+    //    "pid": "***REMOVED***",
+    //    ],
+    //    [
+    //    "name": "***REMOVED***",
+    //    "shortcuts": "p2b",
+    //    "pid": "***REMOVED***",
+    //    ]
+
     
     @IBOutlet weak var userTextField: NSTextField!
     @IBOutlet weak var passwordTextField: NSTextField!
+    @IBOutlet weak var tableView: NSTableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,9 +38,9 @@ class SettingsViewController: NSViewController, NSTableViewDelegate, NSTableView
         if pass != nil {
             self.passwordTextField.stringValue = pass!
         }
+        
+        self.projects = UserDefaults.standard.value(forKey: "projects") as! [[String:Any]]
     }
-    
-    
     
     @IBAction func closeTapped(_ sender: Any) {
         self.dismiss(sender)
@@ -33,32 +48,21 @@ class SettingsViewController: NSViewController, NSTableViewDelegate, NSTableView
     @IBAction func saveTapped(_ sender: Any) {
         UserDefaults.standard.setValue(self.userTextField.stringValue, forKey: "user")
         UserDefaults.standard.setValue(self.passwordTextField.stringValue, forKey: "password")
+        UserDefaults.standard.setValue(self.projects, forKey: "projects")
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {
         return self.projects.count
     }
 
-    let projects = [
-        [
-            "name": "***REMOVED***",
-            "shortcuts": "ks",
-            "pid": "***REMOVED***",
-            "image": "***REMOVED***"
-        ],
-        [
-            "name": "***REMOVED***",
-            "shortcuts": "p2b",
-            "pid": "***REMOVED***",
-            "image": "***REMOVED***"
-        ]
-    ]
 
     func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
         if tableColumn?.title == "image" {
-            let name = self.projects[row]["image"]
-            if name != nil {
-                let image = NSImage(named: name!)
+            
+            let imageData = self.projects[row]["image"]
+            
+            if imageData != nil {
+                let image = NSImage(data: (imageData as! NSData) as Data)
                 return image
             } else {
                 return nil
@@ -68,8 +72,32 @@ class SettingsViewController: NSViewController, NSTableViewDelegate, NSTableView
         }
     }
     
-
-
-    @IBAction func aaaa(_ sender: Any) {
+    @IBAction func addProjectTapped(_ sender: Any) {
+        self.projects.append([String:Any]())
+        self.tableView.reloadData()
     }
+
+    @IBAction func deleteProject(_ sender: Any) {
+        self.projects.remove(at: self.tableView.selectedRow)
+        self.tableView.reloadData()
+    }
+    
+    @IBAction func buttonAction(_ sender: Any) {
+        print("Change image", self.tableView.selectedRow)
+        let openPanel = NSOpenPanel()
+        openPanel.allowsMultipleSelection = false
+        openPanel.canChooseDirectories = false
+        openPanel.canCreateDirectories = false
+        openPanel.canChooseFiles = true
+        openPanel.begin { (a) in
+            if openPanel.urls.first != nil {
+                print("done", a, openPanel.urls)
+                let image = NSImage(byReferencing: openPanel.urls.first!)
+                self.projects[self.tableView.selectedRow]["image"] = image.tiffRepresentation
+                
+                UserDefaults.standard.set(self.projects as! NSArray, forKey: "projects")
+            }
+        }
+    }
+
 }
