@@ -19,4 +19,10 @@ class MyWindowController: NSWindowController {
         print("tapped")
     }
 
+    @IBAction func ksTapped(_ sender: Any) {
+        (self.contentViewController as! ViewController).setProject(projectString: "#ks")
+    }
+    @IBAction func p2bTapped(_ sender: Any) {
+        (self.contentViewController as! ViewController).setProject(projectString: "#p2b")
+    }
 }
