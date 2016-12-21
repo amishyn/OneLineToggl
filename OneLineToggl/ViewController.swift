@@ -11,20 +11,33 @@ import Alamofire
 import SwiftDate
 
 class ViewController: NSViewController {
-    let slang = ["#ks": ***REMOVED***, "#p2b": ***REMOVED***]
+    var slang = [String:String]()
     
     @IBOutlet weak var slangLabel: NSTextField!
     @IBOutlet weak var lastActivity: NSTextField!
     @IBOutlet weak var textField: NSTextField!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.update()
         // Do any additional setup after loading the view.
-        self.slangLabel.stringValue = slang.description
-        
-        self.view.window?.makeFirstResponder(self.textField)
     }
+    func update() {
+        let projects = UserDefaults.standard.value(forKey: "projects") as! [[String:Any]]
+        projects.map{
+            let s = $0["shortcuts"] as! String
+            let pid = $0["pid"] as! String
+            self.slang[s] = pid
+        }
+        var keys: [String] = []
+        
+        self.slang.forEach { (key, value) in
+            keys.append(key)
+        }
+        self.slangLabel.stringValue = keys.joined(separator: ",")
+    }
+
     
     func setProject(projectString: String) {
         self.textField.stringValue = "\(self.textField.stringValue) \(projectString)"
@@ -37,15 +50,16 @@ class ViewController: NSViewController {
             // Update the view, if already loaded.
         }
     }
-
+    
     @IBAction func done(_ sender: Any) {
+        self.update()
         self.view.window?.makeFirstResponder(nil)
     }
     
     
     @IBAction func textFieldAction(_ sender: NSTextField) {
         self.view.window?.makeFirstResponder(nil)
-
+        
         self.submit(string: sender.stringValue)
     }
     
@@ -90,8 +104,8 @@ class ViewController: NSViewController {
                     ] as [String : Any]
             ]
             
-            let user = "***REMOVED***"
-            let password = "api_token"
+            let user = UserDefaults.standard.value(forKey: "user") as! String
+            let password = UserDefaults.standard.value(forKey: "password") as! String
             
             if let authorizationHeader = Request.authorizationHeader(user: user, password: password) {
                 headers[authorizationHeader.key] = authorizationHeader.value
@@ -104,7 +118,14 @@ class ViewController: NSViewController {
             }
             
         }
+        
+    }
 
+    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+        let vc = segue.destinationController as! SettingsViewController
+        vc.callback = {
+            self.update()
+        }
     }
     
 }

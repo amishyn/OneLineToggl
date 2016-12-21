@@ -10,7 +10,8 @@ import Cocoa
 
 class SettingsViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource{
 
-    var projects: [[String:Any]] = []
+    var projects: [[String:Any]] = [[:]]
+    var callback: ()->Void = {}
     
     //    [
     //    "name": "***REMOVED***",
@@ -43,6 +44,7 @@ class SettingsViewController: NSViewController, NSTableViewDelegate, NSTableView
     }
     
     @IBAction func closeTapped(_ sender: Any) {
+        self.callback()
         self.dismiss(sender)
     }
     @IBAction func saveTapped(_ sender: Any) {
@@ -96,8 +98,14 @@ class SettingsViewController: NSViewController, NSTableViewDelegate, NSTableView
                 self.projects[self.tableView.selectedRow]["image"] = image.tiffRepresentation
                 
                 UserDefaults.standard.set(self.projects as! NSArray, forKey: "projects")
+                print("image saved")
             }
         }
+    }
+
+    func tableView(_ tableView: NSTableView, setObjectValue object: Any?, for tableColumn: NSTableColumn?, row: Int) {
+        self.projects[row][(tableColumn?.title)!] = object!
+        UserDefaults.standard.set(self.projects as! NSArray, forKey: "projects")        
     }
 
 }
