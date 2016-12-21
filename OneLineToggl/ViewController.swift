@@ -10,7 +10,7 @@ import Cocoa
 import Alamofire
 import SwiftDate
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, NSTouchBarDelegate  {
     var slang = [String:String]()
     
     @IBOutlet weak var slangLabel: NSTextField!
@@ -26,9 +26,11 @@ class ViewController: NSViewController {
     func update() {
         let projects = UserDefaults.standard.value(forKey: "projects") as! [[String:Any]]
         projects.map{
-            let s = $0["shortcuts"] as! String
-            let pid = $0["pid"] as! String
-            self.slang[s] = pid
+            if $0["shortcuts"] != nil && $0["pid"] != nil {
+                let s = $0["shortcuts"] as! String
+                let pid = $0["pid"] as! String
+                self.slang[s] = pid
+            }
         }
         var keys: [String] = []
         
@@ -125,6 +127,12 @@ class ViewController: NSViewController {
         let vc = segue.destinationController as! SettingsViewController
         vc.callback = {
             self.update()
+            if #available(OSX 10.12.2, *) {
+                self.view.window?.windowController?.makeTouchBar()
+                self.view.window?.windowController?.showWindow(self)
+            } else {
+                // Fallback on earlier versions
+            }
         }
     }
     

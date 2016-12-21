@@ -104,8 +104,10 @@ class SettingsViewController: NSViewController, NSTableViewDelegate, NSTableView
     }
 
     func tableView(_ tableView: NSTableView, setObjectValue object: Any?, for tableColumn: NSTableColumn?, row: Int) {
-        self.projects[row][(tableColumn?.title)!] = object!
-        UserDefaults.standard.set(self.projects as! NSArray, forKey: "projects")        
+        if self.projects.count > row && self.projects[row] != nil {
+            self.projects[row][(tableColumn?.title)!] = object!
+            UserDefaults.standard.set(self.projects as! NSArray, forKey: "projects")
+        }
     }
 
 }

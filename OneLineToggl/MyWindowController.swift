@@ -23,14 +23,16 @@ class MyWindowController: NSWindowController, NSTouchBarDelegate {
     
     @available(OSX 10.12.2, *)
     override func makeTouchBar() -> NSTouchBar? {
+        self.touchBar = nil
+        
+        self.updateProjects()
         
         let touchBar = NSTouchBar()
         touchBar.delegate = self
-        var identifiers = self.projects.map{ NSTouchBarItemIdentifier(rawValue: $0["name"] as! String) }
+        var identifiers = self.projects.filter({ $0["name"] != nil }).map{ NSTouchBarItemIdentifier(rawValue: $0["name"] as! String) }
+        print(identifiers)
         identifiers.append(.otherItemsProxy)
         touchBar.defaultItemIdentifiers = identifiers
-
-        touchBar.customizationAllowedItemIdentifiers = [NSTouchBarItemIdentifier(rawValue: "ks"), NSTouchBarItemIdentifier(rawValue: "p2b")]
         
         return touchBar
     }
@@ -41,7 +43,7 @@ class MyWindowController: NSWindowController, NSTouchBarDelegate {
         
         
         let project = self.projects.filter { (project) -> Bool in
-            return project["name"] as! String == identifier.rawValue
+            return project["name"] != nil && project["name"] as! String == identifier.rawValue
         }.first
         
         let item = NSCustomTouchBarItem(identifier: identifier)
