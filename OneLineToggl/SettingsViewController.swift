@@ -76,11 +76,13 @@ class SettingsViewController: NSViewController, NSTableViewDelegate, NSTableView
     
     @IBAction func addProjectTapped(_ sender: Any) {
         self.projects.append([String:Any]())
+        self.saveProjects()
         self.tableView.reloadData()
     }
 
     @IBAction func deleteProject(_ sender: Any) {
         self.projects.remove(at: self.tableView.selectedRow)
+        self.saveProjects()
         self.tableView.reloadData()
     }
     
@@ -97,8 +99,7 @@ class SettingsViewController: NSViewController, NSTableViewDelegate, NSTableView
                 let image = NSImage(byReferencing: openPanel.urls.first!)
                 self.projects[self.tableView.selectedRow]["image"] = image.tiffRepresentation
                 
-                UserDefaults.standard.set(self.projects as! NSArray, forKey: "projects")
-                print("image saved")
+                self.saveProjects()
             }
         }
     }
@@ -106,8 +107,11 @@ class SettingsViewController: NSViewController, NSTableViewDelegate, NSTableView
     func tableView(_ tableView: NSTableView, setObjectValue object: Any?, for tableColumn: NSTableColumn?, row: Int) {
         if self.projects.count > row && self.projects[row] != nil {
             self.projects[row][(tableColumn?.title)!] = object!
-            UserDefaults.standard.set(self.projects as! NSArray, forKey: "projects")
+            self.saveProjects()
         }
     }
 
+    func saveProjects() {
+        UserDefaults.standard.set(self.projects as! NSArray, forKey: "projects")
+    }
 }
