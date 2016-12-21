@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OneLineToggl/MyWindowController.swift"
+            timestampString = "503999090.82746"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "touchBar(_:makeItemForIdentifier:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "OneLineToggl.MyWindowController.touchBar (__ObjC.NSTouchBar, makeItemForIdentifier : __C.NSTouchBarItemIdentifier) -&gt; Swift.Optional&lt;__ObjC.NSTouchBarItem&gt;"
+                  moduleName = "OneLineToggl"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/amishyn/Code/mine/OneLineToggl/OneLineToggl/MyWindowController.swift"
+                  timestampString = "503998968.098959"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43"
+                  offsetFromSymbolStart = "81">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "OneLineToggl.MyWindowController.(touchBar (__ObjC.NSTouchBar, makeItemForIdentifier : __C.NSTouchBarItemIdentifier) -&gt; Swift.Optional&lt;__ObjC.NSTouchBarItem&gt;).(closure #1)"
+                  moduleName = "OneLineToggl"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/amishyn/Code/mine/OneLineToggl/OneLineToggl/MyWindowController.swift"
+                  timestampString = "503998968.100199"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "38">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
