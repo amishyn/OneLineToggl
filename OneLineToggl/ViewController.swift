@@ -129,7 +129,6 @@ class ViewController: NSViewController, NSTouchBarDelegate  {
             self.update()
             if #available(OSX 10.12.2, *) {
                 self.view.window?.windowController?.makeTouchBar()
-                self.view.window?.windowController?.showWindow(self)
             } else {
                 // Fallback on earlier versions
             }

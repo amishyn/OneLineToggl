@@ -19,7 +19,7 @@ class MyWindowController: NSWindowController, NSTouchBarDelegate {
     
     override func windowWillLoad() {
         self.updateProjects()
-    }
+    }    
     
     @available(OSX 10.12.2, *)
     override func makeTouchBar() -> NSTouchBar? {
