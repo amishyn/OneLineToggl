@@ -10,19 +10,15 @@ import Cocoa
 
 class SettingsViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource{
 
+    //    [
+    //    "name": "railsware",
+    //    "shortcuts": "rw",
+    //    "pid": "222222222",
+    //    ],
+
     var projects: [[String:Any]] = [[:]]
     var callback: ()->Void = {}
     
-    //    [
-    //    "name": "***REMOVED***",
-    //    "shortcuts": "ks",
-    //    "pid": "***REMOVED***",
-    //    ],
-    //    [
-    //    "name": "***REMOVED***",
-    //    "shortcuts": "p2b",
-    //    "pid": "***REMOVED***",
-    //    ]
 
     
     @IBOutlet weak var userTextField: NSTextField!
