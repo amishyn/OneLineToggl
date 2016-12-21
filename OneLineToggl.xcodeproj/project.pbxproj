@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB4EF2711E0A8DB90066DFE0 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = AB4EF2701E0A8DB90066DFE0 /* README.md */; };
 		AB7524B01E0945340051F48F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7524AF1E0945340051F48F /* SettingsViewController.swift */; };
 		ABF6129A1E0862E4006ACBC9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF612991E0862E4006ACBC9 /* AppDelegate.swift */; };
 		ABF6129C1E0862E4006ACBC9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF6129B1E0862E4006ACBC9 /* ViewController.swift */; };
@@ -19,6 +20,7 @@
 /* Begin PBXFileReference section */
 		66533E83E9C9529457F331CD /* Pods-OneLineToggl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneLineToggl.release.xcconfig"; path = "Pods/Target Support Files/Pods-OneLineToggl/Pods-OneLineToggl.release.xcconfig"; sourceTree = "<group>"; };
 		74F4497DE8BC77008152639A /* Pods-OneLineToggl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneLineToggl.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OneLineToggl/Pods-OneLineToggl.debug.xcconfig"; sourceTree = "<group>"; };
+		AB4EF2701E0A8DB90066DFE0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		AB7524AF1E0945340051F48F /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		ABF612961E0862E4006ACBC9 /* OneLineToggl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneLineToggl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABF612991E0862E4006ACBC9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 		ABF6128D1E0862E4006ACBC9 = {
 			isa = PBXGroup;
 			children = (
+				AB4EF2701E0A8DB90066DFE0 /* README.md */,
 				ABF612981E0862E4006ACBC9 /* OneLineToggl */,
 				ABF612971E0862E4006ACBC9 /* Products */,
 				54AFD1569BAC6F5323D35209 /* Pods */,
@@ -215,6 +218,7 @@
 			files = (
 				ABF612B11E08633D006ACBC9 /* MyWindowController.swift in Sources */,
 				ABF6129C1E0862E4006ACBC9 /* ViewController.swift in Sources */,
+				AB4EF2711E0A8DB90066DFE0 /* README.md in Sources */,
 				ABF6129A1E0862E4006ACBC9 /* AppDelegate.swift in Sources */,
 				AB7524B01E0945340051F48F /* SettingsViewController.swift in Sources */,
 			);
