@@ -79,47 +79,47 @@ class ViewController: NSViewController, NSTouchBarDelegate  {
             results.map {
                 project = nsString.substring(with: $0.range)
                 title = title.replacingOccurrences(of: project, with: "")
-            }
+            }  
             
             
         } catch let error {
             print("invalid regex: \(error.localizedDescription)")
         }
         
+
+        var headers: HTTPHeaders = [
+            "Content-Type": "application/json"
+        ]
+        
+        let date = Date()
+        let dateInRegion = DateInRegion(absoluteDate: date)
+        let serializedString:String = dateInRegion.iso8601()
+        var parameters = [
+            "time_entry": ["start": serializedString,
+                           "description": title,
+                           "created_with": "One line",
+                           "duration": -1*date.timeIntervalSince1970
+                ] as [String : Any]
+        ]
         let togglProject = slang[project]
         if (togglProject != nil) {
-            print("activity:", title, " @ ", project, togglProject!)
-            
-            var headers: HTTPHeaders = [
-                "Content-Type": "application/json"
-            ]
-            
-            let date = Date()
-            let dateInRegion = DateInRegion(absoluteDate: date)
-            let serializedString:String = dateInRegion.iso8601()
-            let parameters = [
-                "time_entry": ["start": serializedString,
-                               "description": title,
-                               "pid": togglProject!,
-                               "created_with": "One line",
-                               "duration": -1*date.timeIntervalSince1970
-                    ] as [String : Any]
-            ]
-            
-            let user = UserDefaults.standard.value(forKey: "user") as! String
-            let password = UserDefaults.standard.value(forKey: "password") as! String
-            
-            if let authorizationHeader = Request.authorizationHeader(user: user, password: password) {
-                headers[authorizationHeader.key] = authorizationHeader.value
-            }
-            
-            
-            Alamofire.request("https://www.toggl.com/api/v8/time_entries", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).response { response in
-                self.textField.stringValue = ""
-                self.lastActivity.stringValue = "\(title) \(project)"
-            }
-            
+            parameters["time_entry"]?["pid"] = togglProject!
+        } else {
+            parameters["time_entry"]?["description"] = "\(title) \(project)"
         }
+        
+        let user = UserDefaults.standard.value(forKey: "user") as! String
+        let password = UserDefaults.standard.value(forKey: "password") as! String
+        
+        if let authorizationHeader = Request.authorizationHeader(user: user, password: password) {
+            headers[authorizationHeader.key] = authorizationHeader.value
+        }
+        
+        Alamofire.request("https://www.toggl.com/api/v8/time_entries", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).response { response in
+            self.textField.stringValue = ""
+            self.lastActivity.stringValue = "\(title) \(project)"
+        }
+        
         
     }
 
