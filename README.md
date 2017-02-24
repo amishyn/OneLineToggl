@@ -4,6 +4,9 @@
 
 2. Play with Touch Bar
 
+# Example
+https://monosnap.com/file/Wt3lbNZivgs9WMaj0yg3cE9vLe4Evs
+
 # How to use
 ## Setup
 1. Open settings
